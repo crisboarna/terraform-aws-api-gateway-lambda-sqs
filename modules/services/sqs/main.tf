@@ -1,7 +1,7 @@
 # SQS QUEUE
 resource "aws_sqs_queue" "sqs_queue" {
   count                       = "${length(var.sqs_queue_names)}"
-  name                        = "${var.sqs_queue_fifos[count.index] ? "${var.sqs_queue_names[count.index]}.fifo" : var.sqs_queue_names[count.index] }"
+  name                        = "${var.sqs_queue_fifos[count.index] ? "${var.sqs_queue_names[count.index]}-${terraform.workspace}.fifo" : var.sqs_queue_names[count.index]-${terraform.workspace} }"
   fifo_queue                  = "${var.sqs_queue_fifos[count.index]}"
   content_based_deduplication = "${var.sqs_queue_content_based_deduplications[count.index]}"
   delay_seconds               = "${var.sqs_queue_delay_seconds[count.index]}"
@@ -16,7 +16,7 @@ resource "aws_sqs_queue" "sqs_queue" {
 # SQS DEAD LETTER QUEUE
 resource "aws_sqs_queue" "sqs_dead_letter_queue" {
   count                       = "${length(var.sqs_queue_names)}"
-  name                        = "${var.sqs_queue_fifos[count.index] ? "${var.sqs_queue_names[count.index]}_dead_letter.fifo" : "${var.sqs_queue_names[count.index]}_dead_letter" }"
+  name                        = "${var.sqs_queue_fifos[count.index] ? "${var.sqs_queue_names[count.index]}_dead_letter-${terraform.workspace}.fifo" : "${var.sqs_queue_names[count.index]}_dead_letter-${terraform.workspace}" }"
   fifo_queue                  = "${var.sqs_queue_fifos[count.index]}"
   content_based_deduplication = "${var.sqs_queue_content_based_deduplications[count.index]}"
   delay_seconds               = "${var.sqs_queue_delay_seconds[count.index]}"
