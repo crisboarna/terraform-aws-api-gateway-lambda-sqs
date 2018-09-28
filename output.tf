@@ -67,6 +67,7 @@ output "sqs_dead_letter_queue_names" {
 output "sqs_dead_letter_queue_ids" {
   value = "${module.sqs.sqs_dead_letter_queue_ids}"
 }
+
 output "sqs_dead_letter_queue_arns" {
   value = "${module.sqs.sqs_dead_letter_queue_arns}"
 }
