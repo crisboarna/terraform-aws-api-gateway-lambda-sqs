@@ -1,6 +1,6 @@
 #required otherwise circular dependency between IAM and Lambda
 locals {
-  complete_environment_variables = "${merge(map("SQS_QUEUES_URLS", "${module.sqs.sqs_queue_ids}"), var.environment_variables)}"
+  complete_environment_variables = "${merge(map("SQS_QUEUES_URLS", "${join(",", module.sqs.sqs_queue_ids)}"), var.environment_variables)}"
   lambda_function_name = "${var.project}-${var.lambda_function_name}-${terraform.workspace}"
 }
 
@@ -68,6 +68,7 @@ module "iam" {
   lambda_name = "${local.lambda_function_name}"
   api_gw_name = "${module.apigw.api_gw_name}"
   api_gw_id = "${module.apigw.api_gw_id}"
+  sqs_count = "${length(var.sqs_queue_names)}"
   sqs_arn_list = "${module.sqs.sqs_queue_arns}"
   sqs_policy_action_lists = "${var.sqs_policy_action_lists}"
 }

@@ -1,5 +1,5 @@
 data "template_file" "lambda_sqs_policy" {
-  count = "${length(var.sqs_arn_list) > 0 ? 1 : 0}"
+  count = "${var.sqs_count > 0 ? 1 : 0}"
   template = "${file("${path.module}/sqs-policy.json")}"
   vars {
     policy_arn_list = "${join(", ", formatlist("\"%s\"", var.sqs_arn_list))}"
@@ -8,7 +8,7 @@ data "template_file" "lambda_sqs_policy" {
 }
 
 resource "aws_iam_role_policy" "SQS-Policy" {
-  count = "${length(var.sqs_arn_list) > 0 ? 1 : 0}"
+  count = "${var.sqs_count > 0 ? 1 : 0}"
   name = "${aws_iam_role.lambda-role.name}-Policy"
   role = "${aws_iam_role.lambda-role.id}"
   policy = "${data.template_file.lambda_sqs_policy.rendered}"

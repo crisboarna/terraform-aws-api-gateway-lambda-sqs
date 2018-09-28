@@ -19,3 +19,7 @@ variable "sqs_policy_action_lists" {
   type = "list"
   description = "List of ARN's to allow permissions for"
 }
+
+variable "sqs_count" {
+  description = "Number of SQS entries"
+}
