@@ -22,7 +22,7 @@ I will expand this in later versions to be user provided.
 **Lambda**
 
 This module is created with full customization by user.
-Exports S3 bucket to allow usage by multiple Lambda's
+Exports S3 bucket to allow usage by multiple Lambda's but given `lambda_code_s3_bucket_use_existing=true` it will use existing S3 bucket provided in `lambda_code_s3_bucket_existing`.
 - This module by default, if created allows accompanying Lambda access to SQS if SQS entry is provided as parameters.
 - The Lambda gets by default in addition to user provided environment variables the `SQS_QUEUES_URLS` which is a list with the URL for each of the created queues for convenience.
 
