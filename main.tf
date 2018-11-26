@@ -5,16 +5,17 @@ locals {
 }
 
 module "apigw" {
-  source                          = "./modules/services/api-gateway"
+  source                                = "./modules/services/api-gateway"
 
   #Setup
-  api_gw_name                     = "${var.project}-API-Gateway-${terraform.workspace}"
-  stage_name                      = "${terraform.workspace}"
-  method                          = "${var.api_gw_method}"
-  lambda_arn                      = "${module.lambda.lambda_arn}"
-  region                          = "${var.region}"
-  lambda_name                     = "${module.lambda.lambda_name}"
-  dependency_list                 = "${var.api_gw_dependency_list}"
+  api_gw_name                           = "${var.project}-API-Gateway-${terraform.workspace}"
+  api_gw_disable_resource_creation      = "${var.api_gw_disable_resource_creation}"
+  stage_name                            = "${terraform.workspace}"
+  method                                = "${var.api_gw_method}"
+  lambda_arn                            = "${module.lambda.lambda_arn}"
+  region                                = "${var.region}"
+  lambda_name                           = "${module.lambda.lambda_name}"
+  dependency_list                       = "${var.api_gw_dependency_list}"
 }
 
 module "lambda" {
