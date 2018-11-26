@@ -4,6 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 ![stability-stable](https://img.shields.io/badge/stability-stable-brightgreen.svg)
 ![Commitizen-friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)
+
 ## Table of Contents
 * [Features](#features)
 * [Usage](#usage)
@@ -22,6 +23,9 @@ I will expand this in later versions to be user provided.
 **Lambda**
 
 This module is created with full customization by user.
+Can use either local filename path `lambda_file_name` or remote S3 bucket configuration.
+
+**Must** use either the local filename or S3 option as they are mutually exclusive. 
 Exports S3 bucket to allow usage by multiple Lambda's but given `lambda_code_s3_bucket_use_existing=true` it will use existing S3 bucket provided in `lambda_code_s3_bucket_existing`.
 - This module by default, if created allows accompanying Lambda access to SQS if SQS entry is provided as parameters.
 - The Lambda gets by default in addition to user provided environment variables the `SQS_QUEUES_URLS` which is a list with the URL for each of the created queues for convenience.

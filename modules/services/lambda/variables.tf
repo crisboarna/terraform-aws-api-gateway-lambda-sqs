@@ -20,6 +20,10 @@ variable "lambda_function_name" {
   description = "The name of the Lambda function"
 }
 
+variable "lambda_file_name" {
+  description = "Path to lambda code zip"
+}
+
 variable "lambda_description" {
   description = "Lambda description"
 }
@@ -42,12 +46,10 @@ variable "lambda_timeout" {
 }
 
 variable "lambda_code_s3_bucket_new" {
-  default = "defaultBucket"
   description = "S3 bucket with source code"
 }
 
 variable "lambda_code_s3_bucket_use_existing" {
-  default = "true"
   description = "Boolean flag to specify whether to use 'lambda_code_s3_bucket_new' and create new bucket or to use 'lambda_code_s3_bucket_existing and use existing S3 bucket and now a generate new one"
 }
 
@@ -60,12 +62,10 @@ variable "lambda_code_s3_key" {
 }
 
 variable "lambda_code_s3_storage_class" {
-  default = "ONEZONE_IA"
   description = "S3 object storage class"
 }
 
 variable "lambda_code_s3_bucket_visibility" {
-  default = "private"
   description = "S3 bucket ACL"
 }
 
