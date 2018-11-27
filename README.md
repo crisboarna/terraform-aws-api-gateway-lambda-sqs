@@ -14,16 +14,17 @@
 ## Features
 Terraform module which deploys a serverless HTTP endpoint backed by AWS API Gateway, Lambda & SQS
  
-###API Gateway
+### API Gateway
 
 This module is created with a single stage that is given as parameter.
 The default path that is created is `/api/messages`. This can be expanded upon as the API GW ID, resources and methods are exposed.
 If you do not wish to have the default values, you can specify `api_gw_disable_resource_creation = true` and you can create the paths desired. 
+Allows specification of Endpoint Configuration Type via variable `api_gw_endpoint_configuration_type` with `EDGE`, `REGIONAL` or `PRIVATE`. Defaults to `EDGE`
 
 **Note** 
 This results in having to create the final `aws_api_gateway_deployment` as well.
 
-###Lambda
+### Lambda
 
 This module is created with full customization by user.
 Can use either local filename path `lambda_file_name` or remote S3 bucket configuration.
@@ -33,7 +34,7 @@ Exports S3 bucket to allow usage by multiple Lambda's but given `lambda_code_s3_
 - This module by default, if created allows accompanying Lambda access to SQS if SQS entry is provided as parameters.
 - The Lambda gets by default in addition to user provided environment variables the `SQS_QUEUES_URLS` which is a list with the URL for each of the created queues for convenience.
 
-##SQS
+## SQS
 
 This module is optional. Lambda is created with W permission for SQS to allow Lambda to add/read/delete messages from queue.
 - This module by default, if created has no permissions added.

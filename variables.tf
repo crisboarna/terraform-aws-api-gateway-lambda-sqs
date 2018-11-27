@@ -109,6 +109,11 @@ variable "api_gw_disable_resource_creation" {
   default = "false"
 }
 
+variable "api_gw_endpoint_configuration_type" {
+  description = "Specify the type of endpoint for API GW to be setup as. [EDGE, REGIONAL, PRIVATE]. Defaults to EDGE"
+  default = "EDGE"
+}
+
 #SQS
 variable "sqs_queue_names" {
   description = "List of SQS Queue Names"
