@@ -43,6 +43,7 @@ data "template_file" "lambda_layer_policy" {
 }
 
 resource "aws_iam_role_policy" "Layer-Policy" {
+  count                                                 = length(var.lambda_layers) > 0 ? 1 : 0
   name                                                  = "${aws_iam_role.lambda-role.name}-Layer-Policy"
   role                                                  = aws_iam_role.lambda-role.id
   policy                                                = data.template_file.lambda_layer_policy.rendered

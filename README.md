@@ -82,7 +82,7 @@ terraform apply -var-file=$1
 ```hcl-terraform
 module "api_lambda_sqs" {
   source  = "crisboarna/terraform-aws-api-gateway-lambda-sqs"
-  version = "v1.0.0"
+  version = "v1.6.0"
 
   #Global
   region = "eu-west-1"
