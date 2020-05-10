@@ -14,6 +14,10 @@
 ## Features
 Terraform module which deploys a serverless HTTP endpoint backed by AWS API Gateway, Lambda & SQS
  
+ ***Attention***
+ 
+ Starting from version 1.6.0, this module targets Terraform 0.12+. If you are using Terraform <=v0.11 you must use up to version 1.5.0.
+ 
 ### API Gateway
 
 This module is created with a single stage that is given as parameter.
@@ -27,7 +31,9 @@ This results in having to create the final `aws_api_gateway_deployment` as well.
 ### Lambda
 
 This module is created with full customization by user.
-Can use either local filename path `lambda_file_name` or remote S3 bucket configuration.
+- Can use either local filename path `lambda_file_name` or remote S3 bucket configuration.
+- Supports Lambda Layers
+- Supports VPC
 
 **Must** use either the local filename or S3 option as they are mutually exclusive. 
 Exports S3 bucket to allow usage by multiple Lambda's but given `lambda_code_s3_bucket_use_existing=true` it will use existing S3 bucket provided in `lambda_code_s3_bucket_existing`.
@@ -43,7 +49,7 @@ This module is optional. Lambda is created with W permission for SQS to allow La
 ```hcl-terraform
 module "api-gateway-lambda-sqs" {
   source  = "crisboarna/api-gateway-lambda-sqs/aws"
-  version = "1.0.0"
+  version = "1.6.0"
 
   # insert the required variables here
 }
@@ -57,7 +63,7 @@ module "api-gateway-lambda-sqs" {
 5. Run `terraform apply -var-file="<.tfvars file>` to deploy infrastructure
 
 **Example Deployment Script**
-```js
+```sh
 #!/usr/bin/env bash
 
 if [[ ! -d .terraform ]]; then
@@ -97,7 +103,10 @@ module "api_lambda_sqs" {
   lambda_code_s3_bucket_visibility = "private"
   lambda_zip_path = "../../awesome-project.zip"
   lambda_memory_size = 256
-  
+  lambda_vpc_security_group_ids = [aws_security_group.vpc_security_group.id]
+  lambda_vpc_subnet_ids = [aws_subnet.vpc_subnet_a.id]
+  lambda_layers = [data.aws_lambda_layer_version.layer.arn]
+
   #SQS
   sqs_queue_names = ["SQS_QUEUE_NAME"]
   sqs_queue_delay_seconds = [0]
@@ -115,7 +124,7 @@ module "api_lambda_sqs" {
   }
   
   #Lambda Environment variables
-  environmentVariables = {
+  environment_variables = {
     NODE_ENV = "production"
   }
 }
